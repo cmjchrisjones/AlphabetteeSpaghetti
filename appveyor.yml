@@ -20,7 +20,7 @@ after_build:
   # For once the build has completed
 artifacts:
  - path: '\AlphabetteeSpaghetti\bin\Debug\netcoreapp2.1\publish\'
-   name: AlphabetteeSpaghetti.Core
+   name: AlphabetteeSpaghetti
    type: WebDeployPackage
 clone_depth: 1
 test_script:

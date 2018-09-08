@@ -1,0 +1,12 @@
+# Operating system (build VM template)
+os: Visual Studio 2017
+
+# Build script
+build_script:
+  - ps: .\build.ps1 --target="AppVeyor" --verbositoy=Verbose
+
+# Tests
+test: on
+
+init:
+  - git config --global core.autocrlf true

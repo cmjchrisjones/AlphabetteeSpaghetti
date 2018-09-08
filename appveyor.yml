@@ -15,11 +15,11 @@ before_build:
   - cmd: dotnet restore --verbosity m
 build_script:
   # output will be in /.src/AlphabetteeSpaghetti/bin/Debug/netcoreapp2.1/publish/
-  - cmd: dotnet publish ./src/AlphabetteeSpaghetti.Core/AlphabetteeSpaghetti.csproj
+  - cmd: dotnet publish ./AlphabetteeSpaghetti.Core/AlphabetteeSpaghetti.Core.csproj
 after_build:
   # For once the build has completed
 artifacts:
- - path: '\src\AlphabetteeSpaghetti.Core\bin\Debug\netcoreapp2.1\publish\'
+ - path: '\AlphabetteeSpaghetti\bin\Debug\netcoreapp2.1\publish\'
    name: AlphabetteeSpaghetti.Core
    type: WebDeployPackage
 clone_depth: 1

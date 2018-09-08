@@ -1,78 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace AlphabetteeSpaghetti.Core
 {
-    public static class WordGenerator
+    public class WordGenerator
     {
         private static readonly List<char> _alphabet = Alphabet.GenerateFullAlphabet();
 
         public static List<string> GeneratePermutations(int length)
         {
-            var list = GenerateCharacter();
+            var values = new List<string>();
 
-            if (length == 1)
+            for (char ch = 'A'; ch <= 'Z'; ch++)
             {
-                return list;
+                values.Add(ch.ToString());
             }
-            else
-            {
-                var list2 = new List<string>();
 
-                var a = 0;
-                foreach (var w in list)
+            for (int i = 1; i < length; i++)
+            {
+                // Make combinations containing i + 1 letters.
+                var new_values = new List<string>();
+                foreach (string str in values)
                 {
-                    var p = Next(length, list, list2, a, w).ToString();
-                    list2.Add(p);
+                    // Add all possible letters to this string.
+                    foreach (char ch in _alphabet)
+                    {
+                        new_values.Add(str + ch);
+                    }
                 }
-                return list2;
+
+                // Replace the old values with the new ones.
+                values = new_values;
             }
-        }
-
-        private static int Next(int length, List<string> list, List<string> list2, int a, string w)
-        {
-            var max = 0;
-            list.ForEach(a =>
-            {
-                if (a.Length > max)
-                {
-                    max = a.Length;
-                }
-            });
-            
-            do
-            {
-                var x = 0;
-                while (x < 26)
-                {
-                    list2.Add(Next(length, list, list2, a, w).ToString());
-                    x++;
-                }
-                a++;
-            }
-            while (a < length);
-
-            return a;
-        }
-
-        private static List<string> GenerateCharacter()
-        {
-            var list = new List<string>();
-
-            foreach (var c in _alphabet)
-            {
-                list.Add(c.ToString());
-            }
-
-            return list;
-        }
-
-        private static char GenerateNextChar(int index)
-        {
-            return _alphabet[index];
+            return values;
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using AlphabetteeSpaghetti.Core;
 using FluentAssertions;
+using System;
+using System.Diagnostics;
 using System.Linq;
 using Xunit;
 
@@ -11,7 +13,8 @@ namespace AlphabetteeSpaghetti.Tests
         public void When1DigitWordThenListContainingTheAlphabetIsReturnedInListForm()
         {
             // Arrange & Act
-            var sut = WordGenerator.GeneratePermutations(1);
+            var times = 1;
+            var sut = WordGenerator.GeneratePermutations(times);
 
             // Assert
             sut.Should().Contain("A");
@@ -20,14 +23,18 @@ namespace AlphabetteeSpaghetti.Tests
             sut.Should().Contain("Z");
             sut.Should().NotContain("AA");
             sut.Should().NotContain("ZZ");
-            sut.Count().Should().Be(26);
+            var expectedPermutations = (int)Math.Pow(26, times);
+            Trace.Write(expectedPermutations);
+
+            sut.Count().Should().Be(expectedPermutations);
         }
 
         [Fact]
         public void When2DigitWordIsCreatedIsContainsExpectedResults()
         {
             // Arrange & Act
-            var sut = WordGenerator.GeneratePermutations(2);
+            var times = 2;
+            var sut = WordGenerator.GeneratePermutations(times);
 
             // Assert
             sut.Should().Contain("AA");
@@ -38,13 +45,20 @@ namespace AlphabetteeSpaghetti.Tests
             sut.Should().Contain("ZZ");
 
             sut.Where(c => c == "ZZ").Count().Should().Be(1);
+
+            //var expectedPermuatations = (times * (26 * 26) / times) + 26;
+            var expectedPermutations = (int)Math.Pow(26, times);
+            Trace.Write(expectedPermutations);
+
+            sut.Count().Should().Be(expectedPermutations);
         }
 
         [Fact]
         public void When3DigitWordIsCreatedIsContainsExpectedResults()
         {
             // Arrange & Act
-            var sut = WordGenerator.GeneratePermutations(3);
+            var times = 3;
+            var sut = WordGenerator.GeneratePermutations(times);
 
             // Assert
             sut.Should().Contain("AAA");
@@ -53,6 +67,24 @@ namespace AlphabetteeSpaghetti.Tests
             sut.Should().Contain("XFS");
             sut.Should().Contain("ZXX");
             sut.Should().Contain("ZZW");
+
+            sut.Should().NotContain("AA");
+            sut.Should().NotContain("AD");
+            sut.Should().NotContain("LD");
+            sut.Should().NotContain("XF");
+            sut.Should().NotContain("ZX");
+            sut.Should().NotContain("ZZ");
+
+            sut.Should().NotContain("A");
+            sut.Should().NotContain("G");
+            sut.Should().NotContain("M");
+            sut.Should().NotContain("Z");
+            sut.Should().NotContain("AA");
+            sut.Should().NotContain("ZZ");
+
+            var expectedPermutations = (int)Math.Pow(26, times);
+            Trace.Write(expectedPermutations);
+            sut.Count().Should().Be(expectedPermutations);
         }
     }
 }

@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AlphabetteeSpaghetti\AlphabetteeSpaghetti.Core.csproj" />
+    <ProjectReference Include="..\AlphabetteeSpaghetti.Core\AlphabetteeSpaghetti.Core.csproj" />
   </ItemGroup>
 
 </Project>
